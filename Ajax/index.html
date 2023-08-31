@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><span id="data1"></span></p>
+    <p><span id="data2"></span></p>
+    <p><span id="data3"></span></p>
+    <script>
+        const url = "http://localhost:3000/users";
+        fetch(url, {
+            method: 'GET'
+        }).then((r) => {
+            return r.json();
+        }).then((res) => {
+            //console.log(JSON.stringify(res));
+            console.log(res);
+            var data1 = document.getElementById("data1");
+            data1.textContent = JSON.stringify(res); // JSON.stringify() converts a JavaScript object or value to a JSON string
+
+            var data2 = document.getElementById("data2");
+            data2.textContent = JSON.stringify(res[0])
+
+            var data3 = document.getElementById("data3");
+            data3.textContent = res[0].email
+        })
+    </script>
+</body>
+</html>

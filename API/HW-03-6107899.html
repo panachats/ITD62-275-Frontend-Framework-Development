@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href=>
+    <title>Document</title>
+    <script>
+
+        // const lat = 40.7595202352315;
+        // const lon = -73.98410419075665;
+        const key = 'ac5d0158e082e71717005b1ac426e50c'    
+        // function getWeather() {
+        //     fetch(api_url)
+        //     .then(response => response.json())
+        //     .then(data => console.log(data))
+        // }
+        // getWeather();
+
+
+        function renderWeather(){
+            var lat = parseFloat(document.getElementById('lat').value);
+            var lon = parseFloat(document.getElementById('lon').value);
+            // var name = document.getElementById('name');
+            // var temp = document.getElementById('temp');
+            // var humidity = document.getElementById('humidity');
+            // var humidity = document.getElementById('sunrise');
+            // var humidity = document.getElementById('sunset');
+            var url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + key;
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var body = document.getElementById("body");
+                var name = data.name;
+                var temp = data.main.temp;
+                var tempC = data.main.temp - 273.15;
+                var humidity = data.main.humidity;
+                var sunrise = new Date(data.sys.sunrise * 1000);
+                var sunset = new Date(data.sys.sunset * 1000);
+                var dateTime = new Date(data.dt * 1000);
+                body.innerHTML = `<b><h2>${name}</h2></b>
+                                ชื่อ: ${name}<br>
+                                อุณหภูมิ: ${tempC.toFixed(2)} เซนเซียส<br>
+                                ความชื้นสัมพัทธ์: ${humidity} %<br>
+                                พระอาทิตย์ขึ้นเวลา: ${sunrise.toLocaleTimeString()}<br>
+                                พระอาทิตย์ตกเวลา: ${sunset.toLocaleTimeString()}<br>
+                                ณ วันที่: ${dateTime.toLocaleString()}`;
+            })
+        }
+
+
+        
+    </script>
+</head>
+<body >
+    <div class="container">
+        <div class="mb-3">
+            <label for="" class="col-form-label">lat:</label>
+            <input class="form-control" id="lat"></input>
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="col-form-label">lon:</label>
+            <input class="form-control" id="lon" onblur="renderWeather()"></input>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        <div class="card" style="width: 25rem;">
+            <img src="https://lp-cms-production.imgix.net/image_browser/San%20Francisco%20Golden%20Gate%20Bridge%20RF.jpg"
+                class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title name"></h5>
+                <div class="row">
+                    <div class="col-md" id="body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "informatics": [
+    {
+      "id": 1,
+      "name": "INFORMATION TECHNOLOGY AND DIGITAL INNOVATION",
+      "sortName": "ITD",
+      "education_fees": "14800",
+      "total_student": "92"
+    },
+    {
+      "name": "INNOVATION OF MEDICAL INFORMATICS",
+      "sortName": "IMI",
+      "education_fees": 14800,
+      "total_student": 90,
+      "id": 2
+    },
+    {
+      "name": "DIGITAL CONTENT AND MEDIA",
+      "sortName": "DCM",
+      "education_fees": 14800,
+      "total_student": 131,
+      "id": 3
+    }
+  ]
+}

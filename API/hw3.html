@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   
+    <script>
+        function btn_load(){
+            var lat = document.getElementById('lat').value;
+            var lon = document.getElementById('lon').value;
+            const url = "https://api.openweathermap.org/data/2.5/weather?lat="+ lat +"&lon=" + lon + "&appid=b5e6cc53bcd136a9e019a65a74995fc6"
+            
+            fetch(url, {
+                method:"GET"})
+                .then( (r) => {return r.json()} )
+                .then( (res) => {
+                    console.log(res);
+                    document.getElementById("city").textContent = res.name;
+                    var c = parseInt(res.main.temp) - 273.15;
+                    document.getElementById("t").textContent = c.toFixed(2) + " C";
+                    document.getElementById("h").textContent = res.main.humidity + "%"
+                    var d = new Date(res.sys.sunrise * 1000);
+                    console.log(d);
+                    document.getElementById("sr").textContent = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                    d = new Date(res.sys.sunset * 1000);
+                    console.log(d);
+                    document.getElementById("ss").textContent = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                    d = new Date(res.dt * 1000);
+                    console.log(d);
+                    document.getElementById("dt").textContent = d.getDate() + "-" + d.getMonth() + "-" + (d.getFullYear()+543) + " เวลา " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+
+
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div style="width:500px">
+            <input type="text" id="lat" class="form-control" value="20.0"/>
+            <input type="text" id="lon" class="form-control" value="105.0">
+            <button class="btn btn-primary" onclick="btn_load()"> Load </button>
+        </div>
+        <div class="card" style="width:500px">
+            <img src="https://scontent.fbkk10-1.fna.fbcdn.net/v/t39.30808-6/297648676_10166596066195184_7760554916654466188_n.jpg?stp=dst-jpg_p180x540&_nc_cat=109&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeGod5xCyAYcSmas4OZr4J1oSrqdgvjKZjJKup2C-MpmMq5BdDLLsnU8FO-YpUm-3S8&_nc_ohc=uKqFBIxvt64AX8jB-sm&_nc_ht=scontent.fbkk10-1.fna&oh=00_AfD9bXEDI3Dct5APOOjgSHC1BeV2lb3LpuA2xt1SYgswqw&oe=63A730D0" alt="Avatar" style="width:500px">
+            <div class="container">
+              <h4><b><span id="city"></span></b></h4> 
+              <div class="row">
+                <div class="col-6">อุณหภูมิ</div>
+                <div class="col-6"> <span id="t"></span></div>
+              </div>
+              <div class="row">
+                <div class="col-6">ความชื้นสัมพัทธ์</div>
+                <div class="col-6"> <span id="h"></span></div>
+              </div>
+              <div class="row">
+                <div class="col-6">อาทิตย์ขึ้น</div>
+                <div class="col-6"> <span id="sr"></span></div>
+              </div>
+              <div class="row">
+                <div class="col-6">อาทิตย์ตก</div>
+                <div class="col-6"> <span id="ss"></span></div>
+              </div>
+              <div class="row">
+                <div class="col-6">วันที่</div>
+                <div class="col-6"> <span id="dt"></span></div>
+              </div>
+              
+            </div>
+          </div>
+    </div>
+    
+</body>
+</html>
